@@ -1,4 +1,4 @@
-namespace AR_Apuntes;
+namespace AR_Apuntes.Views;
 
 public partial class AR_AboutPage : ContentPage
 {
