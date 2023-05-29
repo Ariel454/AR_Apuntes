@@ -8,8 +8,10 @@ public partial class AR_NotePage : ContentPage
 	{
 		InitializeComponent();
 
-        if (File.Exists(AR_fileName))
-            AR_TextEditor.Text = File.ReadAllText(AR_fileName);
+        string appDataPath = FileSystem.AppDataDirectory;
+        string randomFileName = $"{Path.GetRandomFileName()}.notes.txt";
+
+        AR_CargarNota(Path.Combine(appDataPath, randomFileName));
 
     }
 
@@ -28,6 +30,20 @@ public partial class AR_NotePage : ContentPage
             File.Delete(AR_fileName);
 
         AR_TextEditor.Text = string.Empty;
+    }
+
+    private void AR_CargarNota(string AR_fileName)
+    { 
+        Models.AR_Note noteModel = new Models.AR_Note();
+        noteModel.Filename = AR_fileName;
+
+        if (File.Exists(AR_fileName))
+        { 
+            noteModel.Date = File.GetCreationTime(AR_fileName);
+            noteModel.Text = File.ReadAllText(AR_fileName);
+        }
+
+        BindingContext = noteModel;
     }
 
 }

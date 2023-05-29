@@ -9,8 +9,11 @@ public partial class AR_AboutPage : ContentPage
 
     private async void AR_LearnMore_Clicked(object sender, EventArgs e)
     {
-        // Navigate to the specified URL in the system browser.
-        await Launcher.Default.OpenAsync("https://aka.ms/maui");
+        if (BindingContext is Models.AR_About about)
+        {
+            // Navigate to the specified URL in the system browser.
+            await Launcher.Default.OpenAsync(about.MoreInfoUrl);
+        }
     }
 }
 
